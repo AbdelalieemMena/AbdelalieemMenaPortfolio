@@ -5,8 +5,941 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdelalieem Mena | Embedded Systems & IoT Engineer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker), #1e293b);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(2, 6, 23, 0.5);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--light-gray);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            font-size: 1.05rem;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: white;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a i {
+            font-size: 1.1rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+        
+        .hero-content h4 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--light), var(--light-gray));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-content h1 span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            font-size: 1.05rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .profile-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            width: 100%;
+            max-width: 380px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .profile-card-inner {
+            position: relative;
+            transform: translateZ(30px);
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 380px;
+            border-radius: 15px;
+            background-image: url("1719923631011.jpg");
+            background-position: center center;
+            background-size: cover;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .profile-img i {
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .profile-info {
+            text-align: center;
+        }
+        
+        .profile-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .profile-info p {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .profile-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+        
+        .contact-item i {
+            color: var(--primary);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 80px;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--light), var(--light-gray));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: var(--transition);
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--primary);
+        }
+        
+        .skill-category h3 i {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .skill-item {
+            margin-bottom: 25px;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .skill-header span {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: rgba(100, 116, 139, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: relative;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 30px 40px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid rgba(15, 23, 42, 0.6);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid rgba(15, 23, 42, 0.6);
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .experience-period {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .experience-period i {
+            font-size: 1.1rem;
+        }
+        
+        .experience-desc {
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .experience-list {
+            padding-left: 20px;
+        }
+        
+        .experience-list li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .experience-list li::before {
+            content: '▹';
+            position: absolute;
+            left: -20px;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .project-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .project-content p {
+            color: var(--light-gray);
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .tech-tags span {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--secondary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+        
+        .project-link:hover {
+            color: var(--secondary);
+            gap: 15px;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .contact-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .contact-text {
+            flex: 1;
+        }
+        
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .contact-text a, .contact-text p {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            color: var(--secondary);
+        }
+        
+        .military-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            margin-top: 20px;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .contact-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(100, 116, 139, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--light);
+            transition: var(--transition);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+        
+        .social-icon:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(2, 6, 23, 0.8);
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .footer-text {
+            color: var(--light-gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .copyright a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 80px 0 60px;
+            }
+            
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                right: auto;
+                left: -15px;
+                border-right: 15px solid rgba(15, 23, 42, 0.6);
+                border-left: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,7 +947,7 @@
         <header>
             <div class="logo">
                 <i class="fas fa-microchip"></i>
-                <div>Abdelalieem <span>Mena</span></div>
+                <div>Abdelalieem Mena</div>
             </div>
             <nav>
                 <ul>
@@ -27,144 +960,207 @@
             </nav>
         </header>
 
-        <!-- Profile Section -->
-        <section id="about" class="profile">
-            <div class="profile-img"></div>
-            <h1>Abdelalieem Mena</h1>
-            <div class="title">
-                Technical Product Owner & Embedded IoT Engineer
+        <!-- Hero Section -->
+        <section id="about" class="hero">
+            <div class="hero-content">
+                <h4>Hello, I'm</h4>
+                <h1>Abdelalieem <span>Mena</span></h1>
+                <p>Electrical and Computer Engineer specializing in embedded systems, IoT solutions, and technical product ownership. With extensive experience in microcontroller programming, sensor integration, and technical leadership.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Contact Me
+                    </a>
+                    <a href="https://drive.google.com/file/d/1NdyJGhbivfZ9N-NODVoRL9rNzb-jsRtt/view?usp=sharing" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download CV
+                    </a>
+                </div>
             </div>
-            <p>Electrical and Computer Engineer specializing in embedded systems, IoT solutions, and technical product ownership. With extensive experience in microcontroller programming, sensor integration, and technical leadership, I excel at bridging hardware and software development. Currently enhancing my skills while fulfilling military service obligations.</p>
-            <div class="buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Contact Me
-                </a>
-                <a href="#" class="btn btn-secondary">
-                    <i class="fas fa-download"></i> Download CV
-                </a>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-card-inner">
+                        <div class="profile-img">
+                            <!-- <i class="fas fa-user"></i> -->
+                        </div>
+                        <div class="profile-info">
+                            <h2>Abdelalieem Mena</h2>
+                            <p>Software Engineer || Technical Product Owner</p>
+                            <div class="profile-contact">
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i> Cairo, Egypt
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i> abmena333@gmail.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Skills Section -->
         <section id="skills" class="section">
-            <h2 class="section-title">Technical Expertise</h2>
-            <div class="skills-container">
-                <div class="skill-category">
+            <div class="section-header">
+                <h2>Technical Expertise</h2>
+                <p>My specialized skills and knowledge in embedded systems, IoT, and technical leadership</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category glass-card">
                     <h3><i class="fas fa-microchip"></i> Embedded Systems</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-cog"></i></div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>ARM Cortex-M</span>
+                            <span>95%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>C/C++ Programming</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>RTOS/FreeRTOS</span>
+                            <span>85%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-car-battery"></i></div>
-                            <span>Device Drivers</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>STM32/AVR</span>
+                            <span>92%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-code"></i></div>
-                            <span>C/C++</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-wrench"></i></div>
-                            <span>Hardware Debugging</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="skill-category">
+                <div class="skill-category glass-card">
                     <h3><i class="fas fa-cloud"></i> IoT & Protocols</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-wifi"></i></div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>IoT Protocols</span>
+                            <span>88%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-sensor"></i></div>
-                            <span>Sensor Networks</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-exchange-alt"></i></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Sensor Integration</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>UART/SPI/I2C</span>
+                            <span>93%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-bus"></i></div>
-                            <span>CAN/LIN</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 93%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-diagnoses"></i></div>
-                            <span>UDS Protocol</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>CAN/LIN Protocols</span>
+                            <span>85%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-plug"></i></div>
-                            <span>PCB Design</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="skill-category">
+                <div class="skill-category glass-card">
                     <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon">C</div>
-                            <span>C Programming</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">C++</div>
-                            <span>C++</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-python"></i></div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>Python</span>
+                            <span>85%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fab fa-java"></i></div>
-                            <span>Java</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>C#</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>JavaScript</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>Git/GitHub</span>
+                            <span>90%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-cube"></i></div>
-                            <span>OOP Concepts</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="skill-category">
+                <div class="skill-category glass-card">
                     <h3><i class="fas fa-users"></i> Leadership</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-tasks"></i></div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>Product Ownership</span>
+                            <span>92%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-users"></i></div>
-                            <span>Team Leadership</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>Agile Methodology</span>
+                            <span>88%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-comments"></i></div>
-                            <span>Stakeholder Comm</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
                             <span>Technical Strategy</span>
+                            <span>90%</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"><i class="fas fa-road"></i></div>
-                            <span>Roadmap Planning</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span>Team Leadership</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
                         </div>
                     </div>
                 </div>
@@ -173,86 +1169,151 @@
 
         <!-- Experience Section -->
         <section id="experience" class="section">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="experience">
-                <div class="experience-card">
-                    <h3>Technical Product Owner & Embedded IoT Engineer</h3>
-                    <span class="experience-period"><i class="fas fa-building"></i> ReNile - Full-time | Jan 2025 - Present</span>
-                    <p>Cairo, Egypt</p>
-                    <ul>
-                        <li>Bridge the gap between technical development and business strategy for IoT solutions in smart agriculture</li>
-                        <li>Design and optimize IoT-based solutions for precision farming applications</li>
-                        <li>Collaborate with engineering teams to deliver high-quality embedded systems</li>
-                        <li>Manage product backlog and prioritize features based on business value</li>
-                    </ul>
+            <div class="section-header">
+                <h2>Professional Experience</h2>
+                <p>My career journey and professional roles in embedded systems and IoT development</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content glass-card">
+                        <h3>Software Engineer (Military Service)</h3>
+                        <div class="experience-period">
+                            <i class="fas fa-calendar-alt"></i> Apr 2024 - Apr 2025
+                        </div>
+                        <div class="experience-desc">
+                            Egyptian Armed Forces | Cairo, Egypt
+                        </div>
+                        <ul class="experience-list">
+                            <li>Developed AI-driven applications for handling and analyzing sensitive military data</li>
+                            <li>Built Python-based solutions with operator-friendly UIs using PostgreSQL & SQL</li>
+                            <li>Utilized Postman for API testing and integration across systems</li>
+                            <li>Worked with RAG models for real-time data processing</li>
+                            <li>Programmed and integrated Raspberry Pi controllers with antennas</li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="experience-card">
-                    <h3>Team Leader</h3>
-                    <span class="experience-period"><i class="fas fa-chalkboard-teacher"></i> 3C Online Coding School - Part-time | Jun 2024 - Present</span>
-                    <p>Cairo, Egypt · Remote</p>
-                    <ul>
-                        <li>Lead diverse teams to achieve results through strategic planning and clear communication</li>
-                        <li>Foster collaboration and drive performance in software development education</li>
-                        <li>Develop innovative solutions for online coding education platforms</li>
-                        <li>Mentor junior developers in programming best practices</li>
-                    </ul>
+                <div class="timeline-item">
+                    <div class="timeline-content glass-card">
+                        <h3>Reverse Engineering Engineer</h3>
+                        <div class="experience-period">
+                            <i class="fas fa-calendar-alt"></i> May 2025 - Present
+                        </div>
+                        <div class="experience-desc">
+                            Medical Equipment | Cairo, Egypt · Part-time
+                        </div>
+                        <ul class="experience-list">
+                            <li>Performed reverse engineering for medical devices to replicate and enhance designs</li>
+                            <li>Designed and tested PCBs for various hardware applications</li>
+                            <li>Programmed microcontrollers, integrating hardware with custom software</li>
+                            <li>Executed hardware prototyping including soldering and 3D printing</li>
+                        </ul>
+                    </div>
                 </div>
                 
-               
-                <div class="experience-card">
-                    <h3>IoT Trainee</h3>
-                    <span class="experience-period"><i class="fas fa-cloud"></i> SpimeSenseLabs - Internship | Aug 2022 - Jan 2025</span>
-                    <ul>
-                        <li>Developed IoT solutions for environmental monitoring systems</li>
-                        <li>Designed sensor networks for data collection and analysis</li>
-                        <li>Implemented Verilog-based solutions for hardware acceleration</li>
-                        <li>Created system testing frameworks for IoT devices</li>
-                    </ul>
+                <div class="timeline-item">
+                    <div class="timeline-content glass-card">
+                        <h3>Technical Product Owner & Embedded Engineer</h3>
+                        <div class="experience-period">
+                            <i class="fas fa-calendar-alt"></i> Sep 2024 - Mar 2025
+                        </div>
+                        <div class="experience-desc">
+                            ReNile | Cairo, Egypt · Full-time
+                        </div>
+                        <ul class="experience-list">
+                            <li>Designed and implemented ECUs and low-level firmware in C</li>
+                            <li>Collaborated on PCB design, soldering, and hardware assembly for IoT projects</li>
+                            <li>Acted as bridge between technical teams and business strategy</li>
+                            <li>Managed Agile hardware & software teams</li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="experience-card">
-                    <h3>PCB Design Trainee</h3>
-                    <span class="experience-period"><i class="fas fa-project-diagram"></i> ITIDA - Internship | Jul 2021 - Jan 2025</span>
-                    <p>Giza, Egypt</p>
-                    <ul>
-                        <li>Designed PCB schematics and layouts for embedded systems</li>
-                        <li>Developed control systems for electronic applications</li>
-                        <li>Utilized Eagle Software for PCB design and manufacturing</li>
-                        <li>Created prototypes and tested PCB functionality</li>
-                    </ul>
+                <div class="timeline-item">
+                    <div class="timeline-content glass-card">
+                        <h3>Team Leader</h3>
+                        <div class="experience-period">
+                            <i class="fas fa-calendar-alt"></i> Aug 2024 - Present
+                        </div>
+                        <div class="experience-desc">
+                            3C Online Coding School | Remote
+                        </div>
+                        <ul class="experience-list">
+                            <li>Leading a team of instructors and developers</li>
+                            <li>Teaching programming and AI for kids (ages 6-17)</li>
+                            <li>Simplifying complex topics in an engaging way</li>
+                            <li>Helping students create their own games and learn programming</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects" class="section">
-            <h2 class="section-title">Featured Projects</h2>
+            <div class="section-header">
+                <h2>Featured Projects</h2>
+                <p>My portfolio of embedded systems and IoT development projects</p>
+            </div>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card glass-card">
+                    <div class="project-img">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Laser Medical Device</h3>
+                        <p>Designed and developed the PCB and embedded firmware for a laser-based medical device. Contributed to 3D design & prototyping, ensuring precise component integration.</p>
+                        <div class="tech-tags">
+                            <span>PCB Design</span>
+                            <span>Embedded Firmware</span>
+                            <span>3D Prototyping</span>
+                            <span>Reverse Engineering</span>
+                        </div>
+                        <a href="#" class="project-link">View Project Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-card">
+                    <div class="project-img">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Smart Irrigation System</h3>
+                        <p>Developed an automated irrigation system for greenhouses using specific sensors. Integrated sensors with ECUs to optimize water usage and improve crop productivity.</p>
+                        <div class="tech-tags">
+                            <span>IoT</span>
+                            <span>Sensors</span>
+                            <span>ECU</span>
+                            <span>Automation</span>
+                        </div>
+                        <a href="#" class="project-link">View Project Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-card">
                     <div class="project-img">
                         <i class="fas fa-home"></i>
                     </div>
                     <div class="project-content">
                         <h3>Smart Home System</h3>
-                        <p>An IoT-based home automation system using ATmega32 microcontroller to control lighting, temperature, and security systems through a centralized interface.</p>
+                        <p>Home automation system using ATmega32 microcontroller to control lighting, temperature, and security systems through a centralized interface.</p>
                         <div class="tech-tags">
                             <span>ATmega32</span>
                             <span>Embedded C</span>
-                            <span>Sensors</span>
                             <span>Home Automation</span>
+                            <span>Sensors</span>
                         </div>
                         <a href="https://github.com/AbdelalieemMena/smart_home_atmega32" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card glass-card">
                     <div class="project-img">
                         <i class="fas fa-traffic-light"></i>
                     </div>
                     <div class="project-content">
-                        <h3>Intelligent Traffic Light</h3>
-                        <p>A smart traffic control system that adapts light timing based on real-time traffic flow, reducing congestion and improving urban mobility.</p>
+                        <h3>Traffic Light System</h3>
+                        <p>An intelligent traffic control system that adapts light timing based on real-time traffic flow, reducing congestion and improving urban mobility.</p>
                         <div class="tech-tags">
                             <span>Embedded Systems</span>
                             <span>AVR</span>
@@ -262,81 +1323,133 @@
                         <a href="https://github.com/AbdelalieemMena/Traffic-Light-proj" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Real-Time Clock</h3>
-                        <p>Precision timekeeping device with calendar functionality, alarm system, and temperature compensation for accurate time tracking in embedded systems.</p>
-                        <div class="tech-tags">
-                            <span>Real-time</span>
-                            <span>RTC</span>
-                            <span>I2C</span>
-                            <span>Low-power</span>
-                        </div>
-                        <a href="https://github.com/AbdelalieemMena/Real-Time-Clock" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Line Follower Robot</h3>
-                        <p>Autonomous robot using infrared sensors to follow predefined paths with obstacle avoidance capabilities and adaptive speed control.</p>
-                        <div class="tech-tags">
-                            <span>Arduino</span>
-                            <span>Robotics</span>
-                            <span>PID Control</span>
-                            <span>IR Sensors</span>
-                        </div>
-                        <a href="https://github.com/AbdelalieemMena/-Line_follower_Robot_based_on_Arduino" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact" class="section">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact">
-                <p>I'm currently fulfilling my military service obligations while continuing to develop my technical expertise. I'm open to discussing embedded systems opportunities and collaborations for when I complete my service.</p>
-                
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind or want to discuss opportunities? Let's connect!</p>
+            </div>
+            <div class="contact-container">
                 <div class="contact-info">
-                    <a href="mailto:abmena333@gmail.com">
-                        <i class="fas fa-envelope"></i> abmena333@gmail.com
-                    </a>
-                    <a href="tel:+201154061733">
-                        <i class="fas fa-phone"></i> +20 115 406 1733
-                    </a>
-                    <a href="https://www.linkedin.com/in/abdelalieem-mena-/" target="_blank">
-                        <i class="fab fa-linkedin"></i> linkedin.com/in/abdelalieem-mena-
-                    </a>
-                    <a href="https://github.com/AbdelalieemMena" target="_blank">
-                        <i class="fab fa-github"></i> github.com/AbdelalieemMena
-                    </a>
+                    <div class="contact-card glass-card">
+                        <h3>Contact Information</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Email</h4>
+                                    <a href="mailto:abmena333@gmail.com">abmena333@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Phone</h4>
+                                    <a href="tel:+201154061733">+20 115 406 1733</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Location</h4>
+                                    <p>Cairo, Egypt</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-github"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>GitHub</h4>
+                                    <a href="https://github.com/AbdelalieemMena" target="_blank">github.com/AbdelalieemMena</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-facebook"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Facebook</h4>
+                                    <a href="https://www.facebook.com/profile.php?id=100009230197931" target="_blank">facebook.com/AbdelalieemMena</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="military-status">
+                            <i class="fas fa-shield-alt"></i> Currently fulfilling military service obligations (until April 2025)
+                        </div>
+                        <div class="contact-social">
+                            <a href="https://www.linkedin.com/in/abdelalieem-mena-/" target="_blank" class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com/AbdelalieemMena" target="_blank" class="social-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="mailto:abmena333@gmail.com" class="social-icon">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=100009230197931" class="social-icon">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="military-status">
-                    <i class="fas fa-shield-alt"></i> Currently fulfilling Egyptian military service obligations
-                </div>
-                
-                <div class="contact-icons">
-                    <a href="https://github.com/AbdelalieemMena" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/abdelalieem-mena-/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="mailto:abmena333@gmail.com"><i class="fas fa-envelope"></i></a>
-                    <a href="tel:+201154061733"><i class="fas fa-phone"></i></a>
+                <div class="contact-card glass-card">
+                    <h3>Send a Message</h3>
+                    <p>I'm currently fulfilling my military service obligations while continuing to develop my technical expertise. I'm open to discussing embedded systems opportunities for when I complete my service.</p>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" class="form-input" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>Designed and built by Abdelalieem Mena &copy; 2025 | All rights reserved</p>
-        <p>Connect with me on <a href="https://www.linkedin.com/in/abdelalieem-mena-/" target="_blank">LinkedIn</a></p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    Abdelalieem Mena
+                </div>
+                <p class="footer-text">Software Engineer || Technical Product Owner specializing in microcontroller programming, sensor integration, and technical leadership.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/abdelalieem-mena-/" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/AbdelalieemMena" target="_blank" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:abmena333@gmail.com" class="social-icon">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100009230197931" class="social-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 Abdelalieem Mena. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--secondary);"></i> for Software Engineer || Technical Product Owner</p>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -353,45 +1466,93 @@
             });
         });
         
-        // Add hover effect to experience cards
-        const experienceCards = document.querySelectorAll('.experience-card');
-        experienceCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px)';
+        // Add scroll animation to elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -100px 0px"
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
             });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
+        }, observerOptions);
+        
+        // Observe elements
+        document.querySelectorAll('.skill-category, .timeline-content, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Form submission
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+        
+        // Back to top button
+        const backToTop = document.createElement('div');
+        backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        backToTop.style.position = 'fixed';
+        backToTop.style.bottom = '30px';
+        backToTop.style.right = '30px';
+        backToTop.style.width = '50px';
+        backToTop.style.height = '50px';
+        backToTop.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+        backToTop.style.borderRadius = '50%';
+        backToTop.style.display = 'flex';
+        backToTop.style.alignItems = 'center';
+        backToTop.style.justifyContent = 'center';
+        backToTop.style.color = 'white';
+        backToTop.style.fontSize = '1.2rem';
+        backToTop.style.cursor = 'pointer';
+        backToTop.style.boxShadow = '0 5px 15px rgba(37, 99, 235, 0.4)';
+        backToTop.style.zIndex = '99';
+        backToTop.style.opacity = '0';
+        backToTop.style.transition = 'opacity 0.3s, transform 0.3s';
+        document.body.appendChild(backToTop);
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
         
-        // Contact button functionality
-        const contactBtn = document.querySelector('.btn-primary');
-        if(contactBtn) {
-            contactBtn.addEventListener('click', () => {
-                document.querySelector('#contact').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.transform = 'scale(1)';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.transform = 'scale(0.8)';
+            }
+        });
         
-        // Download CV button functionality
-        const downloadBtn = document.querySelector('.btn-secondary');
-        if(downloadBtn) {
-            downloadBtn.addEventListener('click', () => {
-                alert('CV download would start here!');
-            });
-        }
-        
-        // Project card animations
-        const projectCards = document.querySelectorAll('.project-card');
-        projectCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-12px)';
+        // Card hover effect enhancement
+        const cards = document.querySelectorAll('.glass-card, .project-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleY = (x - centerX) / 8;
+                const angleX = (centerY - y) / 8;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.03)`;
             });
             
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
             });
         });
     </script>
